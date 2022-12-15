@@ -15,12 +15,11 @@ namespace LiveSplit.UI.Components
         public TimeTrialTimerSettings Settings { get; set; }
         protected LiveSplitState CurrentState { get; set; }
 
-        private Process _process { get; set; }
+        private Process _process;
         private int _splitIndex;
         private float _time;
         private float _oldValue;
         private float _currentValue;
-        private bool _updateTextFromEvent;
 
         public string ComponentName => "Time Trial Timer";
 
@@ -82,18 +81,14 @@ namespace LiveSplit.UI.Components
 
         public void Update(IInvalidator invalidator, LiveSplitState state, float width, float height, LayoutMode mode)
         {
-            if (state.CurrentPhase != TimerPhase.Running)
-            {
-                if (_updateTextFromEvent)
-                {
-                    _updateTextFromEvent = false;
-                    InternalComponent.Update(invalidator, state, width, height, mode);
-                }
+            InternalComponent.Update(invalidator, state, width, height, mode);
 
+            if (state.CurrentSplitIndex == _splitIndex)
+            {
                 return;
             }
 
-            if (state.CurrentSplitIndex == _splitIndex)
+            if (state.CurrentPhase != TimerPhase.Running)
             {
                 return;
             }
@@ -107,7 +102,7 @@ namespace LiveSplit.UI.Components
                     _oldValue = _currentValue;
                     _time += _currentValue;
 
-                    UpdateTimerText(_time);
+                    UpdateTimerText(_currentValue);
                 }
             }
             else
@@ -115,28 +110,35 @@ namespace LiveSplit.UI.Components
                 _process = Process.GetProcessesByName("MirrorsEdge").FirstOrDefault();
                 Settings.GetGameVersion(_process);
             }
-
-            InternalComponent.Update(invalidator, state, width, height, mode);
         }
 
         private void State_OnStart(object sender, EventArgs e)
         {
-            _updateTextFromEvent = true;
             UpdateTimerText(0f);
         }
 
         private void State_OnReset(object sender, TimerPhase e)
         {
-            _updateTextFromEvent = true;
             UpdateTimerText(0f);
         }
 
         private void UpdateTimerText(float time)
         {
-            _time = time;
+            if (time == 0f)
+            {
+                _time = time;
+            }
+
             _splitIndex = CurrentState.CurrentSplitIndex;
 
-            InternalComponent.InformationValue = Settings.Formatter.Format(TimeSpan.FromSeconds(_time));
+            if (_splitIndex > 1)
+            {
+                InternalComponent.InformationValue = "(+" + Settings.Formatter.Format(TimeSpan.FromSeconds(Math.Round(time, 2))) + ") " + Settings.Formatter.Format(TimeSpan.FromSeconds(Math.Round(_time, 2)));
+            }
+            else
+            {
+                InternalComponent.InformationValue = Settings.Formatter.Format(TimeSpan.FromSeconds(Math.Round(_time, 2)));
+            }
         }
 
         public void Dispose()

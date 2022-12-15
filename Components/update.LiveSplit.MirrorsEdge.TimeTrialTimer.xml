@@ -4,9 +4,16 @@
 			<file path="Components/LiveSplit.MirrorsEdge.TimeTrialTimer.dll" status="changed"/>
 		</files>
 		<changelog>
-			<change>
-				Initial release.
-			</change>
+			<change>Initial release.</change>
+		</changelog>
+	</update>
+	<update version="1.1.0">
+		<files>
+			<file path="Components/LiveSplit.MirrorsEdge.TimeTrialTimer.dll" status="changed"/>
+		</files>
+		<changelog>
+			<change>Fixed time not being rounded correctly.</change>
+			<change>Added the time from previous split is now shown after the first split.</change>
 		</changelog>
 	</update>
 </updates>

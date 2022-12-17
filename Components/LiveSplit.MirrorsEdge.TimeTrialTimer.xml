@@ -24,4 +24,12 @@
 			<change>Fixed so it can download an update correctly.</change>
 		</changelog>
 	</update>
+	<update version="1.1.2">
+		<files>
+			<file path="Components/LiveSplit.MirrorsEdge.TimeTrialTimer.dll" status="changed"/>
+		</files>
+		<changelog>
+			<change>Update test</change>
+		</changelog>
+	</update>
 </updates>

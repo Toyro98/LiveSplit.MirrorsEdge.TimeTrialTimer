@@ -15,6 +15,6 @@ namespace LiveSplit.UI.Components
         public string UpdateURL => "https://raw.githubusercontent.com/Toyro98/LiveSplit.MirrorsEdge.TimeTrialTimer/main/";
         public string XMLURL => UpdateURL + "Components/LiveSplit.MirrorsEdge.TimeTrialTimer.xml";
 
-        public Version Version => Version.Parse("1.1.1");
+        public Version Version => Version.Parse("1.1.2");
     }
 }

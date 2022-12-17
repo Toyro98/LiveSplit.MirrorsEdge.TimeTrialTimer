@@ -16,4 +16,12 @@
 			<change>Added the time from previous split is now shown after the first split.</change>
 		</changelog>
 	</update>
+	<update version="1.1.1">
+		<files>
+			<file path="Components/LiveSplit.MirrorsEdge.TimeTrialTimer.dll" status="changed"/>
+		</files>
+		<changelog>
+			<change>Fixed so it can download an update correctly.</change>
+		</changelog>
+	</update>
 </updates>

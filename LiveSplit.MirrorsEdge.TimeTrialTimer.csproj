@@ -55,7 +55,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Components\update.LiveSplit.MirrorsEdge.TimeTrialTimer.xml" />
+    <Content Include="Components\LiveSplit.MirrorsEdge.TimeTrialTimer.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="UI\Components\TimeTrialTimerSettings.resx">

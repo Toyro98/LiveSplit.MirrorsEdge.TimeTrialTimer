@@ -14,13 +14,6 @@ namespace LiveSplit.UI.Components
         protected InfoTextComponent InternalComponent { get; set; }
         public TimeTrialTimerSettings Settings { get; set; }
         protected LiveSplitState CurrentState { get; set; }
-
-        private Process _process;
-        private int _splitIndex;
-        private float _time;
-        private float _oldValue;
-        private float _currentValue;
-
         public string ComponentName => "Time Trial Timer";
 
         public float HorizontalWidth => InternalComponent.HorizontalWidth;
@@ -34,6 +27,12 @@ namespace LiveSplit.UI.Components
         public float PaddingRight => InternalComponent.PaddingRight;
 
         public IDictionary<string, Action> ContextMenuControls => null;
+
+        private Process _process;
+        private int _splitIndex;
+        private float _time;
+        private float _currentValue;
+        private float _oldValue;
 
         public TimeTrialTimerComponent(LiveSplitState state)
         {
@@ -131,14 +130,22 @@ namespace LiveSplit.UI.Components
 
             _splitIndex = CurrentState.CurrentSplitIndex;
 
+            string roundedTotal = GetRoundedTime(time);
+            string roundedTotalTime = GetRoundedTime(_time);
+
             if (_splitIndex > 1)
             {
-                InternalComponent.InformationValue = "(+" + Settings.Formatter.Format(TimeSpan.FromSeconds(Math.Round(time, 2))) + ") " + Settings.Formatter.Format(TimeSpan.FromSeconds(Math.Round(_time, 2)));
+                InternalComponent.InformationValue = "(+" + roundedTotal + ") " + roundedTotalTime;
             }
             else
             {
-                InternalComponent.InformationValue = Settings.Formatter.Format(TimeSpan.FromSeconds(Math.Round(_time, 2)));
+                InternalComponent.InformationValue = roundedTotalTime;
             }
+        }
+
+        private string GetRoundedTime(float time)
+        {
+            return Settings.Formatter.Format(TimeSpan.FromSeconds(Math.Round(time, 2)));
         }
 
         public void Dispose()

@@ -12,11 +12,9 @@ namespace LiveSplit.UI.Components
         public IComponent Create(LiveSplitState state) => new TimeTrialTimerComponent(state);
 
         public string UpdateName => ComponentName;
+        public string UpdateURL => "https://raw.githubusercontent.com/Toyro98/LiveSplit.MirrorsEdge.TimeTrialTimer/main/";
+        public string XMLURL => UpdateURL + "Components/LiveSplit.MirrorsEdge.TimeTrialTimer.xml";
 
-        public string UpdateURL => "https://github.com/Toyro98/LiveSplit.MirrorsEdge.TimeTrialTimer";
-
-        public string XMLURL => UpdateURL + "Components/update.LiveSplit.MirrorsEdge.TimeTrialTimer.xml";
-
-        public Version Version => Version.Parse("1.1.0");
+        public Version Version => Version.Parse("1.1.1");
     }
 }
